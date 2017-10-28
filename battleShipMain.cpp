@@ -18,7 +18,8 @@ void updatePlayArea(){
     }
 }
 void inputPlayerShip(){
-    string orient("");
+    string orient3("");
+    string orient5("");
     cout<<"Enter ship starting coordinate for ship with 1 value: ";
     cin>>playerShipPosition[0][0]>>playerShipPosition[0][1];
     cout<<playerShipPosition[0][0] - 1;
@@ -29,19 +30,19 @@ void inputPlayerShip(){
     cout<<"Enter ship starting coordinate for ship with 3 value: ";
     cin>>playerShipPosition[3][0]>>playerShipPosition[3][1];
     cout<<"Enter orientation: ";
-    cin>>orient;
-    if(orient == "vert"){
+    cin>>orient3;
+    if(orient3 == "vert"){
         playerShipOrientation[0] = 'v';
-    }else if (orient == "hor"){
+    }else if (orient3 == "hor"){
         playerShipOrientation[0] = 'h';
     }
     cout<<"Enter ship starting coordinate for ship with 5 value: ";
     cin>>playerShipPosition[4][0]>>playerShipPosition[4][1];
     cout<<"Enter orientation: ";
-    cin>>orient;
-    if(orient == "vert"){
+    cin>>orient5;
+    if(orient5 == "vert"){
         playerShipOrientation[1] = 'v';
-    }else if (orient == "hor"){
+    }else if (orient5 == "hor"){
         playerShipOrientation[1] = 'h';
     }
 }
