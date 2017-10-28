@@ -1,0 +1,3 @@
+C:/Users/infan_000/Documents/CPP/cppBattleShip/cmake-build-debug/CMakeFiles/cppBattleShip.dir
+C:/Users/infan_000/Documents/CPP/cppBattleShip/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/infan_000/Documents/CPP/cppBattleShip/cmake-build-debug/CMakeFiles/rebuild_cache.dir
