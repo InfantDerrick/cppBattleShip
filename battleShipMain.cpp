@@ -21,6 +21,7 @@ void inputPlayerShip(){
     string orient("");
     cout<<"Enter ship starting coordinate for ship with 1 value: ";
     cin>>playerShipPosition[0][0]>>playerShipPosition[0][1];
+    cout<<playerShipPosition[0][0] - 1;
     cout<<"Enter ship starting coordinate for ship with 1 value: ";
     cin>>playerShipPosition[1][0]>>playerShipPosition[1][1];
     cout<<"Enter ship starting coordinate for ship with 1 value: ";
@@ -30,45 +31,46 @@ void inputPlayerShip(){
     cout<<"Enter orientation: ";
     cin>>orient;
     if(orient == "vert"){
-        playerShipOrientation[0] == 'v';
+        playerShipOrientation[0] = 'v';
     }else if (orient == "hor"){
-        playerShipOrientation[0] == 'h';
+        playerShipOrientation[0] = 'h';
     }
     cout<<"Enter ship starting coordinate for ship with 5 value: ";
     cin>>playerShipPosition[4][0]>>playerShipPosition[4][1];
     cout<<"Enter orientation: ";
     cin>>orient;
     if(orient == "vert"){
-        playerShipOrientation[1] == 'v';
+        playerShipOrientation[1] = 'v';
     }else if (orient == "hor"){
-        playerShipOrientation[1] == 'h';
+        playerShipOrientation[1] = 'h';
     }
 }
 void setPlayerShip(){
-    playArea[playerShipPosition[0][0] - 1][playerShipPosition[0][1] - 1] = 'l';
-    playArea[playerShipPosition[1][0] - 1][playerShipPosition[1][1] -1] = 'l';
-    playArea[playerShipPosition[2][0] - 1][playerShipPosition[2][1] - 1] = 'l';
+    system("CLS");
+    playArea[playerShipPosition[0][1] - 1][playerShipPosition[0][0] - 1] = 'l';
+    playArea[playerShipPosition[1][1] -1][playerShipPosition[1][0] - 1] = 'l';
+    playArea[playerShipPosition[2][1] - 1][playerShipPosition[2][0] - 1] = 'l';
     if(playerShipOrientation[0] == 'v'){
-        playArea[playerShipPosition[3][0] - 1][playerShipPosition[3][1] - 1] = 'l';
-        playArea[playerShipPosition[3][0] - 1][playerShipPosition[3][1]] = 'l';
-        playArea[playerShipPosition[3][0] - 1][playerShipPosition[3][1] + 1] = 'l';
-    }else if(playerShipOrientation[0] = 'h'){
-        playArea[playerShipPosition[3][0] - 1][playerShipPosition[3][1] - 1] = 'l';
-        playArea[playerShipPosition[3][0]][playerShipPosition[3][1] - 1] = 'l';
-        playArea[playerShipPosition[3][0] + 1][playerShipPosition[3][1] - 1] = 'l';
+        playArea[playerShipPosition[3][1] - 1][playerShipPosition[3][0] - 1] = 'l';
+        playArea[playerShipPosition[3][1]][playerShipPosition[3][0] - 1] = 'l';
+        playArea[playerShipPosition[3][1] + 1][playerShipPosition[3][0] - 1] = 'l';
+    }else if(playerShipOrientation[0] == 'h'){
+        playArea[playerShipPosition[3][1] - 1][playerShipPosition[3][0] - 1] = 'l';
+        playArea[playerShipPosition[3][1] - 1][playerShipPosition[3][0]] = 'l';
+        playArea[playerShipPosition[3][1] - 1][playerShipPosition[3][0] + 1] = 'l';
     }
-    if(playerShipOrientation[0] == 'v'){
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1] - 1] = 'l';
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1]] = 'l';
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1] + 1] = 'l';
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1] + 2] = 'l';
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1] + 3] = 'l';
-    }else if(playerShipOrientation[0] = 'h'){
-        playArea[playerShipPosition[4][0] - 1][playerShipPosition[4][1] - 1] = 'l';
-        playArea[playerShipPosition[4][0]][playerShipPosition[4][1] - 1] = 'l';
-        playArea[playerShipPosition[4][0] + 1][playerShipPosition[4][1] - 1] = 'l';
-        playArea[playerShipPosition[4][0] + 2][playerShipPosition[4][1] - 1] = 'l';
-        playArea[playerShipPosition[4][0] + 3][playerShipPosition[4][1] - 1] = 'l';
+    if(playerShipOrientation[1] == 'v'){
+        playArea[playerShipPosition[4][1] - 1][playerShipPosition[4][0] - 1] = 'l';
+        playArea[playerShipPosition[4][1]][playerShipPosition[4][0] - 1] = 'l';
+        playArea[playerShipPosition[4][1] + 1][playerShipPosition[4][0] - 1] = 'l';
+        playArea[playerShipPosition[4][1] + 2][playerShipPosition[4][0] - 1] = 'l';
+        playArea[playerShipPosition[4][1] + 3][playerShipPosition[4][0] - 1]= 'l';
+    }else if(playerShipOrientation[1] == 'h'){
+        playArea[playerShipPosition[4][1] - 1] [playerShipPosition[4][0] - 1]= 'l';
+        playArea[playerShipPosition[4][1] - 1] [playerShipPosition[4][0]]= 'l';
+        playArea[playerShipPosition[4][1] - 1] [playerShipPosition[4][0] + 1]= 'l';
+        playArea[playerShipPosition[4][1] - 1] [playerShipPosition[4][0] + 2]= 'l';
+        playArea[playerShipPosition[4][1] - 1] [playerShipPosition[4][0] + 3]= 'l';
     }
 }
 int main(){
@@ -80,4 +82,5 @@ int main(){
     inputPlayerShip();
     setPlayerShip();
     updatePlayArea();
+    return 0;
 }
