@@ -10,6 +10,10 @@ char userBoard[10][10];
 char userAiBoard[10][10];
 char aiBoard[10][10];
 int randIncr = 0;
+int aiDet = 0;
+int winner = 0;
+void performAiAttack();
+int smartAiCoordinate[2];
 bool validInput = true;
 int playerShipPosition[5][2];
 int aiShipPosition[5][2];
@@ -363,6 +367,7 @@ void randAiShip(){
                   if(k%2 == 0){
                       aiShipOrientation[1] = 'v';
                   }else{
+
                       aiShipOrientation[1] = 'h';
                   }
               }while(checkConflictsAi(aiShipPosition[4][0], aiShipPosition[4][1], 5, aiShipOrientation[1], aiShipOrientation[0]));
@@ -372,6 +377,158 @@ void randAiShip(){
       }
   }
 }
+void smartAi(int x, int y){
+    smartAiCoordinate[0] = x;
+    smartAiCoordinate[1] = y;
+    aiDet++;
+}
+void smartAi(){
+    switch(aiDet){
+        case 1:
+            if (userBoard[smartAiCoordinate[1]+1][smartAiCoordinate[0]] == 'l') {
+                userBoard[smartAiCoordinate[1] + 1][smartAiCoordinate[0]] = 'x';
+            }else if(userBoard[smartAiCoordinate[1] + 1][smartAiCoordinate[0]] == 'o'){
+                userBoard[smartAiCoordinate[1] + 1][smartAiCoordinate[0]] = '*';
+                aiDet++;
+            }else{
+                aiDet++;
+                performAiAttack();
+            }
+        case 2:
+            if (userBoard[smartAiCoordinate[1]-1][smartAiCoordinate[0]] == 'l') {
+                userBoard[smartAiCoordinate[1]-1][smartAiCoordinate[0]] = 'x';
+            }else if(userBoard[smartAiCoordinate[1] - 1][smartAiCoordinate[0]] == 'o'){
+                userBoard[smartAiCoordinate[1] - 1][smartAiCoordinate[0]] = '*';
+                aiDet++;
+            }else{
+                aiDet++;
+                performAiAttack();
+            }
+        case 3:
+            if (userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] + 1] == 'l') {
+                userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] + 1] = 'x';
+            }else if(userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] + 1] == 'o'){
+                userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] + 1] = '*';
+                aiDet++;
+            }else{
+                aiDet++;
+                performAiAttack();
+            }
+        case 4:
+            if (userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] - 1] == 'l') {
+                userBoard[smartAiCoordinate[1]+1][smartAiCoordinate[0] - 1] = 'x';
+            }else if(userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] - 1] == 'o'){
+                userBoard[smartAiCoordinate[1]][smartAiCoordinate[0] - 1] = '*';
+                aiDet++;
+            }else{
+                aiDet++;
+                performAiAttack();
+            }
+        case 5:
+            aiDet = 0;
+            performAiAttack();
+    }
+}
+void performPlayerAttack(){
+    int playerAttackCoordinate[2];
+    cout<<"Enter Attack coordinate: ";
+    cin>>playerAttackCoordinate[0]>>playerAttackCoordinate[1];
+    if(aiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] == 'l'){
+        aiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] = 'x';
+        userAiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] = 'x';
+    }else if(aiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] == 'o'){
+        aiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] = '*';
+        userAiBoard[playerAttackCoordinate[1]-1][playerAttackCoordinate[0]-1] = '*';
+    }else{
+        cout<<"Please Enter Another Coordinate";
+        performPlayerAttack();
+    }
+}
+void performAiAttack(){
+    int aiAttackCoordinate[2];
+    if(aiDet == 0) {
+        aiAttackCoordinate[0] = rand() % 10;
+        aiAttackCoordinate[1] = rand() % 10;
+        if (userBoard[aiAttackCoordinate[1]][aiAttackCoordinate[0]] == 'l') {
+            smartAi(aiAttackCoordinate[0], aiAttackCoordinate[1]);
+            userBoard[aiAttackCoordinate[1]][aiAttackCoordinate[0]] = 'x';
+        }else if(userBoard[aiAttackCoordinate[1]][aiAttackCoordinate[0]] == 'o'){
+            userBoard[aiAttackCoordinate[1]][aiAttackCoordinate[0]] = '*';
+        }else{
+            performPlayerAttack();
+        }
+    }else{
+        smartAi();
+    }
+}
+int checkGameOverAi(){
+    int randCheck = 0;
+    for(int i = 0; i<10; i++){
+        for(int j = 0; j<10; j++){
+            if(aiBoard[i][j] == 'l'){
+                randCheck = 1;
+                break;
+            }
+        }
+        if(randCheck == 1){
+            break;
+        }
+    }
+    if(randCheck == 0){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+int checkGameOverUser(){
+
+    int randCheck = 0;
+    for(int i = 0; i<10; i++){
+        for(int j = 0; j<10; j++){
+            if(userBoard[i][j] == 'l'){
+                randCheck = 1;
+                break;
+            }
+        }
+        if(randCheck == 1){
+            break;
+        }
+    }
+    if(randCheck == 0){
+        return 1;
+    }else{
+        return 0;
+    }
+}
+void startGame(){
+    updatePlayArea();
+    int gameState = 0;
+    while(gameState == 0){
+        performPlayerAttack();
+        gameState = checkGameOverAi();
+        if(gameState == 1){
+            break;
+        }
+        updatePlayArea();
+        performAiAttack();
+        gameState = checkGameOverUser();
+        if(gameState == 2){
+            break;
+        }
+        updatePlayArea();
+    }
+    winner = gameState;
+}
+void declareWinner() {
+    switch(winner){
+        case 1:
+            cout<<"Congratulation! You are the Winner!";
+            break;
+        case 2:
+            cout<<"GAME OVER!";
+            break;
+    }
+}
 int main(){
     createUserBoard();
     createAiBoard();
@@ -379,6 +536,7 @@ int main(){
     setPlayerShip();
     randAiShip();
     setAiShip();
-    updatePlayArea();
+    startGame();
+    declareWinner();
     return 0;
 }
