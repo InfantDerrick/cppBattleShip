@@ -59,7 +59,7 @@ bool checkConflictsAi(int x, int y, int shipLength,char o = 'v', char lastShipOr
                     vald = 1;
                     break;
                 }
-                if(y + i > 10){
+                if(y + bruh > 10){
                     vald = 1;
                     break;
                 }
@@ -93,7 +93,7 @@ bool checkConflictsAi(int x, int y, int shipLength,char o = 'v', char lastShipOr
                     vald = 1;
                     break;
                 }
-                if(x + 1 > 10){
+                if(x + bruh > 10){
                     vald = 1;
                     break;
                 }
